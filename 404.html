@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found // Pierce Schiller</title>
+<meta name="robots" content="noindex">
+<style>
+  :root { --paper:#f3f5f8; --ink:#14213d; --muted:#5b6478; --gel:#232842; --band:#ff8fb1; color-scheme: light dark; }
+  @media (prefers-color-scheme: dark) { :root { --paper:#171a2b; --ink:#e7eaf3; --muted:#a3abc2; } }
+  body { margin:0; min-height:100vh; display:grid; place-items:center; background:var(--paper); color:var(--ink);
+         font-family: system-ui, sans-serif; text-align:center; padding:1.25rem; }
+  .lane { width:5rem; height:9rem; margin:0 auto 2rem; border-radius:8px; background:var(--gel); position:relative; }
+  .lane::after { content:""; position:absolute; left:15%; right:15%; bottom:12px; height:6px; border-radius:99px;
+                 background:var(--band); box-shadow:0 0 12px var(--band); }
+  h1 { font-size:2rem; margin:0 0 .5rem; }
+  p { color:var(--muted); margin:0 0 1.5rem; }
+  a { color:inherit; }
+</style>
+</head>
+<body>
+  <main>
+    <div class="lane" aria-hidden="true"></div>
+    <h1>This page ran off the gel</h1>
+    <p>The page you followed doesn't exist.</p>
+    <a href="/">Go to the home page</a>
+  </main>
+</body>
+</html>
