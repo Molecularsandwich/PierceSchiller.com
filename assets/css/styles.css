@@ -537,11 +537,11 @@ footer { padding: 2rem 0 3rem; color: var(--muted); font-size: 0.9rem; }
 .giffen-x:hover { color: #fff; border-color: var(--lime); }
 
 /* 3. bottom of the page: the '85 Civic rolls in and parks */
-footer { position: relative; padding-top: 10rem; }
+footer { position: relative; padding-top: 4.5rem; }
 .roadtrip {
   position: absolute;
   inset: 0 0 auto 0;
-  height: 9rem;
+  height: 4rem;
   overflow: hidden;
   pointer-events: none;
 }
@@ -549,9 +549,9 @@ footer { position: relative; padding-top: 10rem; }
   position: absolute;
   bottom: 0.4rem;
   left: 52%;
-  width: 230px;
+  width: 34px;
   pointer-events: auto;
-  filter: drop-shadow(0 6px 10px #ff1a3a88);
+  filter: drop-shadow(0 1px 3px #ff1a3a99);
   transform: translateX(-120vw);
 }
 .car svg { display: block; width: 100%; height: auto; }
@@ -560,8 +560,8 @@ footer { position: relative; padding-top: 10rem; }
   position: absolute;
   left: 8%;
   right: 8%;
-  bottom: -4px;
-  height: 6px;
+  bottom: -2px;
+  height: 3px;
   border-radius: 50%;
   background: #ff1a3a;
   filter: blur(6px);
@@ -597,8 +597,8 @@ footer { position: relative; padding-top: 10rem; }
 @keyframes bounce { 50% { transform: translateY(-3px); } }
 
 @media (max-width: 600px) {
-  .car { left: 18%; width: 190px; }
-  .honk { left: auto; right: -20%; }
+  .car { left: 40%; width: 34px; }
+  .honk { left: auto; right: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .car { transform: none; }
