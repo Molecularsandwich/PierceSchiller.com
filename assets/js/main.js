@@ -145,3 +145,41 @@ console.log(
   "color:#ff2fd0;font:700 14px sans-serif;text-shadow:0 0 6px #ff2fd0",
   "color:#19f3ff;font:12px sans-serif"
 );
+
+// ---------- Investors login: a gag, nothing is sent or stored ----------
+(function () {
+  var dlg = document.querySelector(".login");
+  var open = document.querySelector(".investor-open");
+  if (!dlg || !open || typeof dlg.showModal !== "function") {
+    if (open) open.hidden = true;
+    return;
+  }
+  var form = dlg.querySelector(".login-form");
+  var fail = dlg.querySelector(".login-fail");
+  function reset() {
+    form.reset();
+    form.hidden = false;
+    fail.hidden = true;
+  }
+  open.addEventListener("click", function () {
+    reset();
+    dlg.showModal();
+    form.querySelector("input").focus();
+  });
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    form.reset();              // wipe whatever was typed, immediately
+    form.hidden = true;
+    fail.hidden = false;
+    dlg.querySelector(".login-retry").focus();
+  });
+  dlg.querySelector(".login-retry").addEventListener("click", function () {
+    reset();
+    form.querySelector("input").focus();
+  });
+  dlg.querySelectorAll(".login-cancel").forEach(function (b) {
+    b.addEventListener("click", function () { dlg.close(); });
+  });
+  dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
+  dlg.addEventListener("close", reset);
+})();

@@ -605,3 +605,72 @@ footer { position: relative; padding-top: 10rem; }
   .roadtrip.go .car, .roadtrip.go .wheel, .car:hover svg { animation: none; }
   .gel.uv { animation: none; }
 }
+
+/* ======================================================
+   INVESTORS LOGIN (a gag: it never logs anyone in)
+   ====================================================== */
+.investor { margin-top: 1rem; }
+.investor-open {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.1rem;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--cyan);
+  background: transparent;
+  border: 1px solid var(--cyan);
+  border-radius: 999px;
+  box-shadow: 0 0 8px #19f3ff66, inset 0 0 8px #19f3ff33;
+  text-shadow: 0 0 6px var(--cyan);
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+.investor-open:hover { background: #19f3ff18; box-shadow: 0 0 16px var(--cyan), inset 0 0 10px #19f3ff55; }
+.investor-open svg { width: 1em; height: 1em; }
+
+.login {
+  width: min(92vw, 24rem);
+  padding: 1.75rem;
+  color: var(--ink);
+  background: #0d0820;
+  border: 1px solid var(--cyan);
+  border-radius: 16px;
+  box-shadow: 0 0 24px #19f3ff66, 0 0 60px #ff2fd033;
+}
+.login::backdrop { background: #05030dcc; backdrop-filter: blur(4px); }
+.login[open] { animation: pop-glow 0.3s ease-out; }
+.login h2 { margin-bottom: 1.25rem; }
+.login label { display: grid; gap: 0.35rem; margin-bottom: 1rem; font-size: 0.9rem; color: var(--muted); }
+.login input {
+  font: inherit;
+  color: #fff;
+  background: #07040f;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 0.65rem 0.8rem;
+}
+.login input:focus { outline: none; border-color: var(--cyan); box-shadow: 0 0 10px #19f3ff88; }
+.login-row { display: flex; align-items: center; gap: 1rem; margin-top: 0.5rem; }
+.login-cancel {
+  font: inherit;
+  color: var(--muted);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.login-cancel:hover { color: #fff; }
+.login-fail[hidden], .login-form[hidden] { display: none; }
+.fail-msg {
+  margin: 0.5rem 0 1.5rem;
+  font-size: 1.6rem;
+  font-weight: 800;
+  font-stretch: 85%;
+  line-height: 1.15;
+  color: #fff;
+  text-shadow: 0 0 4px #fff, 0 0 12px #ff2f5a, 0 0 28px #ff2f5a;
+  animation: flicker-on 0.9s linear both;
+}
