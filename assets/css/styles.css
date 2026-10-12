@@ -1,29 +1,23 @@
 /* ---------- tokens ---------- */
 :root {
-  --paper: #f3f5f8;
-  --ink: #14213d;
-  --muted: #5b6478;
-  --rule: #d8dde6;
-  --gel: #232842;
-  --gel-deep: #191d31;
-  --band: #ff8fb1;
-  --ladder: #9ad4c6;
-  --accent: #c2185b;         /* band color, darkened for text on light paper */
+  --bg: #0a0618;
+  --bg-2: #120a2a;
+  --ink: #eef0ff;
+  --muted: #9a9cc4;
+  --rule: #2a2150;
+  --pink: #ff2fd0;
+  --cyan: #19f3ff;
+  --lime: #b6ff3b;
+  --gel: #110b26;
+  --gel-deep: #07040f;
+  --band: var(--pink);
+  --ladder: var(--cyan);
+  --accent: var(--cyan);
   --wrap: 72rem;
   --measure: 38rem;
-  color-scheme: light;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #171a2b;
-    --ink: #e7eaf3;
-    --muted: #a3abc2;
-    --rule: #2e3350;
-    --gel: #232842;
-    --gel-deep: #12152a;
-    --accent: #ff8fb1;
-    color-scheme: dark;
-  }
+  --glow-pink: 0 0 4px #fff, 0 0 10px var(--pink), 0 0 22px var(--pink), 0 0 44px #ff2fd088;
+  --glow-cyan: 0 0 4px #fff, 0 0 10px var(--cyan), 0 0 22px var(--cyan), 0 0 44px #19f3ff88;
+  color-scheme: dark;
 }
 
 /* ---------- base ---------- */
@@ -32,29 +26,75 @@ html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body {
   margin: 0;
-  background: var(--paper);
+  background:
+    radial-gradient(60rem 40rem at 85% -10%, #3a0d5c66, transparent 60%),
+    radial-gradient(50rem 40rem at -10% 40%, #06345266, transparent 60%),
+    var(--bg);
   color: var(--ink);
   font-family: "Bricolage Grotesque", system-ui, sans-serif;
   font-variation-settings: "opsz" 14;
   font-size: 1.0625rem;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+/* synthwave floor grid, fixed behind everything */
+body::before {
+  content: "";
+  position: fixed;
+  inset: auto -50% -10% -50%;
+  height: 55vh;
+  background:
+    repeating-linear-gradient(90deg, #ff2fd022 0 1px, transparent 1px 80px),
+    repeating-linear-gradient(0deg, #19f3ff1c 0 1px, transparent 1px 60px);
+  transform: perspective(500px) rotateX(62deg);
+  transform-origin: bottom;
+  mask-image: linear-gradient(to top, #000 10%, transparent 85%);
+  pointer-events: none;
+  z-index: -1;
 }
 a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
-a:hover { color: var(--accent); }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+a:hover { color: var(--cyan); text-shadow: 0 0 12px var(--cyan); }
+:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; border-radius: 4px; box-shadow: 0 0 14px var(--cyan); }
 .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 1.25rem; }
 h2 {
-  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  font-size: clamp(1.7rem, 3.2vw, 2.3rem);
   font-weight: 700;
   font-stretch: 85%;
   font-variation-settings: "opsz" 48;
   line-height: 1.1;
   letter-spacing: -0.01em;
   margin: 0 0 1.25rem;
+  color: #fff;
+  text-shadow: var(--glow-cyan);
 }
 p { margin: 0 0 1rem; max-width: var(--measure); }
-.section { padding: clamp(3.5rem, 8vw, 6rem) 0; border-top: 1px solid var(--rule); }
+.section { padding: clamp(3.5rem, 8vw, 6rem) 0; border-top: 1px solid var(--rule); position: relative; }
+/* a neon tube that runs along each section divider */
+.section::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--pink), var(--cyan));
+  box-shadow: 0 0 12px var(--pink), 0 0 24px var(--cyan);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+/* ---------- scroll progress tube ---------- */
+.progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--pink), var(--cyan), var(--lime));
+  box-shadow: 0 0 10px var(--pink), 0 0 20px var(--cyan);
+  transform-origin: left;
+  transform: scaleX(0);
+  z-index: 10;
+}
 
 /* ---------- hero ---------- */
 .hero {
@@ -70,10 +110,22 @@ p { margin: 0 0 1rem; max-width: var(--measure); }
   font-weight: 800;
   font-stretch: 75%;
   font-variation-settings: "opsz" 96;
-  line-height: 0.88;
-  letter-spacing: -0.035em;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  color: #fff;
 }
 .hero h1 span { display: block; }
+.hero h1 span:first-child { text-shadow: var(--glow-pink); animation: ignite 1.6s steps(1) both; }
+.hero h1 span:last-child  { text-shadow: var(--glow-cyan); animation: ignite 1.6s 0.35s steps(1) both; }
+/* neon sign sputtering to life */
+@keyframes ignite {
+  0%   { opacity: 0.08; text-shadow: none; }
+  10%  { opacity: 1; }
+  14%  { opacity: 0.2; text-shadow: none; }
+  22%  { opacity: 1; }
+  26%  { opacity: 0.35; text-shadow: none; }
+  34%, 100% { opacity: 1; }
+}
 .lede {
   font-size: clamp(1.2rem, 2.2vw, 1.45rem);
   line-height: 1.4;
@@ -85,32 +137,36 @@ p { margin: 0 0 1rem; max-width: var(--measure); }
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.85rem 1.4rem;
+  padding: 0.85rem 1.5rem;
   border-radius: 999px;
-  background: var(--ink);
-  color: var(--paper);
+  border: 2px solid var(--pink);
+  background: transparent;
+  color: #fff;
   font-weight: 600;
   text-decoration: none;
-  transition: background-color 0.2s;
+  box-shadow: 0 0 10px var(--pink), inset 0 0 10px #ff2fd066;
+  text-shadow: 0 0 8px var(--pink);
+  transition: background-color 0.2s, box-shadow 0.2s;
 }
-.button:hover { background: var(--accent); color: #fff; }
+.button:hover {
+  color: #fff;
+  background: #ff2fd022;
+  box-shadow: 0 0 18px var(--pink), 0 0 40px #ff2fd088, inset 0 0 14px #ff2fd099;
+  text-shadow: 0 0 8px var(--pink);
+}
 .button svg { width: 1.1em; height: 1.1em; }
 
 /* ---------- the gel ---------- */
-/* Years run top (2006) to bottom (2026). Each band sets --y (start year)
-   and --len (years held). Position comes from calc(), so adding a role
-   means adding one <a> with two numbers. */
 .gel {
   --y0: 2006;
-  --span: 21;            /* years shown */
-  --h: 26rem;            /* gel body height */
+  --span: 21;
+  --h: 26rem;
   position: relative;
-  background:
-    radial-gradient(120% 80% at 50% 0%, #2c3253 0%, transparent 70%),
-    var(--gel);
+  background: radial-gradient(120% 80% at 50% 0%, #1d1240 0%, transparent 70%), var(--gel);
   border-radius: 18px 18px 10px 10px;
   padding: 1rem 1rem 1.25rem 3.4rem;
-  box-shadow: inset 0 0 0 1px #343a5c, 0 30px 60px -30px #0b0e1f;
+  border: 1px solid #3b2a7a;
+  box-shadow: 0 0 0 1px #000, 0 0 30px #7a2cff44, 0 30px 60px -30px #000;
   color: #c9cfe4;
 }
 .gel-head {
@@ -120,6 +176,8 @@ p { margin: 0 0 1rem; max-width: var(--measure); }
   margin-bottom: 0.5rem;
   font-size: 0.85rem;
   text-align: center;
+  color: var(--cyan);
+  text-shadow: 0 0 8px var(--cyan);
 }
 .lanes {
   position: relative;
@@ -134,17 +192,16 @@ p { margin: 0 0 1rem; max-width: var(--measure); }
   margin: 0;
   padding: 0;
   border-radius: 4px;
-  background: linear-gradient(var(--gel-deep), var(--gel-deep)) top / 100% 8px no-repeat,
-              rgba(255,255,255,0.025);
+  background: rgba(255,255,255,0.025);
 }
-/* the loading well at the top of each lane */
 .lane::before {
   content: "";
   position: absolute;
   inset: 0 12% auto;
   height: 8px;
   border-radius: 0 0 3px 3px;
-  background: #0e1124;
+  background: var(--gel-deep);
+  box-shadow: inset 0 0 0 1px #2a2150;
 }
 .band {
   --top: calc((var(--y) - var(--y0)) / var(--span) * var(--h));
@@ -156,26 +213,29 @@ p { margin: 0 0 1rem; max-width: var(--measure); }
   height: var(--thick);
   border-radius: 999px;
   background: var(--band);
-  box-shadow: 0 0 10px 1px color-mix(in srgb, var(--band) 70%, transparent),
-              0 0 26px 4px color-mix(in srgb, var(--band) 30%, transparent);
-  opacity: 0.85;
-  animation: run 1.8s cubic-bezier(.2,.7,.2,1) both;
-  animation-delay: calc(var(--i, 0) * 70ms + 200ms);
-  transition: opacity 0.2s, transform 0.2s;
+  box-shadow: 0 0 6px #fff8, 0 0 12px var(--band), 0 0 28px var(--band);
+  opacity: 0.9;
+  animation: run 1.8s cubic-bezier(.2,.7,.2,1) both, hum 3.2s ease-in-out 2s infinite alternate;
+  animation-delay: calc(var(--i, 0) * 70ms + 200ms), calc(var(--i, 0) * 180ms + 2s);
+  transition: transform 0.2s;
 }
-.band.exit { --band: #ffd1df; opacity: 1; }
-.band:hover, .band:focus-visible { opacity: 1; transform: scaleX(1.08); outline-offset: 4px; }
-/* label that appears on hover/focus */
+.lane:nth-child(2) .band { --band: var(--cyan); }
+.lane:nth-child(3) .band { --band: var(--pink); }
+.lane:nth-child(1) .band { --band: var(--lime); }
+.band.exit { --band: #fff; opacity: 1; }
+.band:hover, .band:focus-visible { transform: scaleX(1.1); outline-offset: 4px; }
 .band span {
   position: absolute;
   left: 50%;
   bottom: calc(100% + 8px);
   translate: -50% 4px;
   white-space: nowrap;
-  padding: 0.25rem 0.55rem;
+  padding: 0.25rem 0.6rem;
   border-radius: 6px;
-  background: #f3f5f8;
-  color: #14213d;
+  background: #07040f;
+  border: 1px solid var(--band);
+  color: #fff;
+  box-shadow: 0 0 12px var(--band);
   font-size: 0.8rem;
   font-weight: 600;
   pointer-events: none;
@@ -183,24 +243,24 @@ p { margin: 0 0 1rem; max-width: var(--measure); }
   transition: opacity 0.15s, translate 0.15s;
   z-index: 2;
 }
+.band.exit span { border-color: var(--pink); box-shadow: 0 0 12px var(--pink); }
 .band:hover span, .band:focus-visible span { opacity: 1; translate: -50% 0; }
 @keyframes run {
   from { top: 0; opacity: 0; filter: blur(3px); }
   15%  { opacity: 0.9; }
   to   { top: var(--top); filter: blur(0); }
 }
-/* ladder of years down the left edge */
+@keyframes hum { to { opacity: 0.6; } }
 .ladder {
   position: absolute;
   left: 0.7rem;
-  top: 0;
-  bottom: 0;
   width: 2.2rem;
   margin: 0;
   padding: 0;
   list-style: none;
   font-size: 0.75rem;
   color: var(--ladder);
+  text-shadow: 0 0 6px var(--ladder);
 }
 .ladder li {
   position: absolute;
@@ -217,12 +277,8 @@ p { margin: 0 0 1rem; max-width: var(--measure); }
   background: var(--ladder);
   box-shadow: 0 0 6px var(--ladder);
 }
-.gel-wrap .ladder { top: calc(1rem + 0.85rem * 1.6 + 0.5rem); bottom: auto; height: var(--h); }
+.gel-wrap .ladder { top: calc(1rem + 0.85rem * 1.6 + 0.5rem); height: var(--h); }
 .gel-note { margin: 0.75rem 0 0; font-size: 0.85rem; color: var(--muted); max-width: none; }
-
-@media (prefers-reduced-motion: reduce) {
-  .band { animation: none; }
-}
 
 /* ---------- story ---------- */
 .story {
@@ -233,7 +289,7 @@ p { margin: 0 0 1rem; max-width: var(--measure); }
 .story p:first-of-type { font-size: 1.2rem; line-height: 1.5; }
 
 /* ---------- timeline ---------- */
-.eras { display: grid; gap: 3rem; }
+.eras { display: grid; gap: 3.5rem; }
 .era {
   display: grid;
   grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
@@ -241,23 +297,43 @@ p { margin: 0 0 1rem; max-width: var(--measure); }
 }
 .era h3 {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   font-weight: 700;
   font-stretch: 85%;
+  color: #fff;
 }
+.era:nth-child(1) h3 { text-shadow: var(--glow-pink); }
+.era:nth-child(2) h3 { text-shadow: var(--glow-cyan); }
+.era:nth-child(3) h3 { text-shadow: 0 0 4px #fff, 0 0 12px var(--lime), 0 0 26px var(--lime); }
 .era-sub { color: var(--muted); font-size: 0.95rem; margin-top: 0.25rem; }
 .roles { list-style: none; margin: 0; padding: 0; }
 .role {
+  --tube: var(--pink);
+  position: relative;
   display: grid;
   grid-template-columns: 6.5rem minmax(0, 1fr);
   gap: 0 1.25rem;
-  padding: 1rem 0.75rem;
-  margin: 0 -0.75rem;
-  border-bottom: 1px solid var(--rule);
-  border-radius: 8px;
+  padding: 1rem 0.75rem 1rem 1.25rem;
+  margin: 0 -0.75rem 0.6rem;
+  border-radius: 10px;
+  background: #ffffff05;
+  border: 1px solid #ffffff0d;
   scroll-margin-top: 1.5rem;
 }
-.role:last-child { border-bottom: 0; }
+.era:nth-child(2) .role { --tube: var(--cyan); }
+.era:nth-child(3) .role { --tube: var(--lime); }
+/* the tube along the left edge that lights up as the role scrolls in */
+.role::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 12%;
+  bottom: 12%;
+  width: 3px;
+  border-radius: 3px;
+  background: var(--tube);
+  box-shadow: 0 0 8px var(--tube), 0 0 18px var(--tube);
+}
 .role time { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 0.95rem; padding-top: 0.1rem; }
 .role h4 { margin: 0; font-size: 1.05rem; font-weight: 650; }
 .role h4 small { font-weight: 400; color: var(--muted); font-size: 1rem; }
@@ -265,19 +341,20 @@ p { margin: 0 0 1rem; max-width: var(--measure); }
 .tag {
   display: inline-block;
   margin-left: 0.4rem;
-  padding: 0.05rem 0.5rem;
+  padding: 0.05rem 0.55rem;
   border-radius: 999px;
-  border: 1px solid var(--accent);
-  color: var(--accent);
+  border: 1px solid var(--pink);
+  color: #fff;
   font-size: 0.78rem;
   font-weight: 600;
   vertical-align: 0.12em;
+  box-shadow: 0 0 8px var(--pink), inset 0 0 6px #ff2fd066;
+  text-shadow: 0 0 6px var(--pink);
 }
-/* clicking a gel band lights up its entry */
 .role:target { animation: flash 2.4s ease-out; }
 @keyframes flash {
-  0%, 30% { background: color-mix(in srgb, var(--band) 28%, transparent); }
-  100% { background: transparent; }
+  0%, 30% { background: color-mix(in srgb, var(--tube) 22%, transparent); box-shadow: 0 0 24px var(--tube); }
+  100% { background: #ffffff05; box-shadow: none; }
 }
 
 /* ---------- creds + contact ---------- */
@@ -287,14 +364,98 @@ p { margin: 0 0 1rem; max-width: var(--measure); }
   gap: 1.5rem;
   margin: 0;
 }
-.creds div { border-left: 3px solid var(--band); padding-left: 1rem; }
+.creds div {
+  padding: 1.1rem 1.25rem;
+  border-radius: 12px;
+  border: 1px solid var(--cyan);
+  box-shadow: 0 0 12px #19f3ff55, inset 0 0 12px #19f3ff22;
+}
+.creds div:nth-child(2) { border-color: var(--pink); box-shadow: 0 0 12px #ff2fd055, inset 0 0 12px #ff2fd022; }
 .creds dt { font-weight: 700; font-size: 1.1rem; }
 .creds dd { margin: 0; color: var(--muted); }
 
-.contact { text-align: left; }
-.contact h2 { font-size: clamp(2.2rem, 6vw, 4rem); font-stretch: 75%; font-weight: 800; letter-spacing: -0.03em; }
+.contact h2 {
+  font-size: clamp(2.4rem, 7vw, 4.5rem);
+  font-stretch: 75%;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  text-shadow: var(--glow-pink);
+}
 .contact .row { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; align-items: center; }
 footer { padding: 2rem 0 3rem; color: var(--muted); font-size: 0.9rem; }
+
+/* ======================================================
+   SCROLL-TRIGGERED ANIMATIONS
+   Pure CSS where the browser supports scroll timelines
+   (Chrome, Edge). main.js adds an .in class for others.
+   ====================================================== */
+@keyframes flicker-on {
+  0%   { opacity: 0; text-shadow: none; }
+  20%  { opacity: 1; }
+  24%  { opacity: 0.25; text-shadow: none; }
+  32%  { opacity: 1; }
+  36%  { opacity: 0.4; text-shadow: none; }
+  50%, 100% { opacity: 1; }
+}
+@keyframes tube-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes slide-glow {
+  from { opacity: 0; transform: translateX(-28px); filter: blur(4px); }
+  to   { opacity: 1; transform: none; filter: none; }
+}
+@keyframes tube-grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes pop-glow {
+  from { opacity: 0; transform: scale(0.94); box-shadow: none; }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .progress { animation: tube-draw linear both; animation-timeline: scroll(root); }
+
+    .section::before { animation: tube-draw linear both; animation-timeline: view(); animation-range: entry 0% entry 60%; }
+
+    .section h2, .era h3 {
+      animation: flicker-on linear both;
+      animation-timeline: view();
+      animation-range: entry 20% cover 35%;
+    }
+    .role {
+      animation: slide-glow linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 80%;
+    }
+    .role::before {
+      transform-origin: top;
+      animation: tube-grow linear both;
+      animation-timeline: view();
+      animation-range: entry 30% cover 40%;
+    }
+    .creds div, .story p {
+      animation: pop-glow linear both;
+      animation-timeline: view();
+      animation-range: entry 10% entry 90%;
+    }
+  }
+
+  /* fallback: same looks, triggered once by IntersectionObserver */
+  @supports not (animation-timeline: view()) {
+    .js .section::before { transition: transform 0.9s ease-out; }
+    .js .section.in::before { transform: scaleX(1); }
+    .js .reveal { opacity: 0; }
+    .js .reveal.in { opacity: 1; }
+    .js h2.reveal.in, .js h3.reveal.in { animation: flicker-on 1.2s linear both; }
+    .js .role.reveal.in { animation: slide-glow 0.7s ease-out both; }
+    .js .creds div.reveal.in, .js .story p.reveal.in { animation: pop-glow 0.7s ease-out both; }
+  }
+}
+/* no scroll timeline and no motion: show everything lit */
+@media (prefers-reduced-motion: reduce) {
+  .band, .hero h1 span { animation: none; }
+  .section::before { transform: scaleX(1); }
+}
+@supports not (animation-timeline: view()) {
+  .progress { display: none; }
+}
 
 /* ---------- small screens ---------- */
 @media (max-width: 860px) {
