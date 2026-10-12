@@ -183,3 +183,26 @@ console.log(
   dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
   dlg.addEventListener("close", reset);
 })();
+
+// ---------- Footer: show the visitor their own IP and rough location ----------
+// Looked up in the visitor's browser and shown only to them. Nothing is stored.
+(function () {
+  var el = document.querySelector(".ipline");
+  if (!el || !window.fetch) return;
+  function show(ip, parts) {
+    var place = parts.filter(Boolean).join(", ");
+    el.textContent = "Your IP: " + ip + (place ? " // " + place : "");
+  }
+  fetch("https://ipwho.is/?fields=ip,city,region,country_code,success")
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      if (!d || d.success === false || !d.ip) throw new Error("ipwho.is");
+      show(d.ip, [d.city, d.region, d.country_code]);
+    })
+    .catch(function () {
+      return fetch("https://ipapi.co/json/")
+        .then(function (r) { return r.json(); })
+        .then(function (d) { if (d && d.ip) show(d.ip, [d.city, d.region, d.country_code]); });
+    })
+    .catch(function () {});
+})();

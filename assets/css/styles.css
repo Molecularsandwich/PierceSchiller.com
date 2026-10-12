@@ -549,7 +549,7 @@ footer { position: relative; padding-top: 10rem; }
   position: absolute;
   bottom: 0.4rem;
   left: 52%;
-  width: 248px;
+  width: 230px;
   pointer-events: auto;
   filter: drop-shadow(0 6px 10px #ff1a3a88);
   transform: translateX(-120vw);
@@ -597,7 +597,7 @@ footer { position: relative; padding-top: 10rem; }
 @keyframes bounce { 50% { transform: translateY(-3px); } }
 
 @media (max-width: 600px) {
-  .car { left: 18%; width: 200px; }
+  .car { left: 18%; width: 190px; }
   .honk { left: auto; right: -20%; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -674,3 +674,7 @@ footer { position: relative; padding-top: 10rem; }
   text-shadow: 0 0 4px #fff, 0 0 12px #ff2f5a, 0 0 28px #ff2f5a;
   animation: flicker-on 0.9s linear both;
 }
+
+/* footer IP readout: deliberately close to the background color */
+.foot-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 1.5rem; }
+.ipline { color: #2b2450; font-size: 0.8rem; font-variant-numeric: tabular-nums; }
