@@ -108,10 +108,10 @@ p { margin: 0 0 1rem; max-width: var(--measure); }
   margin: 0 0 1.25rem;
   font-size: clamp(3.2rem, 9vw, 6.5rem);
   font-weight: 800;
-  font-stretch: 75%;
+  font-stretch: 85%;
   font-variation-settings: "opsz" 96;
-  line-height: 0.92;
-  letter-spacing: -0.03em;
+  line-height: 0.95;
+  letter-spacing: 0.08em;
   color: #fff;
 }
 .hero h1 span { display: block; }
@@ -467,3 +467,9 @@ footer { padding: 2rem 0 3rem; color: var(--muted); font-size: 0.9rem; }
   .role { grid-template-columns: 1fr; }
   .gel { padding-left: 3rem; }
 }
+
+/* keep hover labels inside the gel on the outer lanes */
+.lane:nth-child(3) .band span { left: auto; right: 0; translate: 0 4px; }
+.lane:nth-child(3) .band:hover span, .lane:nth-child(3) .band:focus-visible span { translate: 0 0; }
+.lane:nth-child(1) .band span { left: 0; translate: 0 4px; }
+.lane:nth-child(1) .band:hover span, .lane:nth-child(1) .band:focus-visible span { translate: 0 0; }

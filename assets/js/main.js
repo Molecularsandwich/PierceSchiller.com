@@ -4,7 +4,9 @@
   var d = ["pierceschiller", "com"].join(".");
   var addr = u + "@" + d;
   document.querySelectorAll(".js-mail").forEach(function (a) {
-    a.href = "mailto:" + addr;
+    a.href = "mailto:" + addr +
+      "?subject=" + encodeURIComponent("Let's make this interesting.") +
+      "&body=" + encodeURIComponent("Your move, internet stranger.");
   });
   var t = document.querySelector(".js-mail-text");
   if (t) t.textContent = addr;
