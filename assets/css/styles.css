@@ -479,17 +479,6 @@ footer { padding: 2rem 0 3rem; color: var(--muted); font-size: 0.9rem; }
    ====================================================== */
 
 /* 1. type "pcr": bands amplify, cycle by cycle, then a UV flash */
-.pcr-count {
-  position: absolute;
-  right: 1rem;
-  bottom: 0.3rem;
-  margin: 0;
-  font-size: 0.75rem;
-  color: var(--lime);
-  text-shadow: 0 0 8px var(--lime);
-  font-variant-numeric: tabular-nums;
-  max-width: none;
-}
 .gel[data-cycle] .band { animation: none; transition: transform 0.35s, box-shadow 0.35s, filter 0.35s; }
 .gel[data-cycle="1"] .band { transform: scaleY(1.5); filter: brightness(1.3); }
 .gel[data-cycle="2"] .band { transform: scaleY(2.1); filter: brightness(1.6); box-shadow: 0 0 10px #fff, 0 0 22px var(--band), 0 0 46px var(--band); }
@@ -508,15 +497,29 @@ footer { padding: 2rem 0 3rem; color: var(--muted); font-size: 0.9rem; }
   border: 1px solid var(--lime);
   box-shadow: 0 0 14px #b6ff3b55, inset 0 0 12px #b6ff3b22;
   background: #07040f;
-  max-width: 24rem;
+  max-width: 26rem;
   animation: pop-glow 0.4s ease-out;
 }
 .giffen[hidden] { display: none; }
-.giffen-chart { display: block; width: 100%; height: auto; }
-.giffen-chart .axis { stroke: var(--muted); stroke-width: 1.5; }
-.giffen-chart .lbl { fill: var(--muted); font-size: 10px; text-anchor: middle; }
-.giffen-chart .curve { fill: none; stroke: var(--lime); stroke-width: 3; stroke-linecap: round; filter: drop-shadow(0 0 4px var(--lime)); }
-.giffen-chart .dot { fill: #fff; filter: drop-shadow(0 0 6px var(--pink)) drop-shadow(0 0 2px var(--pink)); }
+.giffen-lede { margin: 0 0 0.75rem; color: var(--ink); font-size: 0.95rem; }
+.plates { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.4rem; }
+.plate {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  font-size: 1.3rem;
+  border: 1px solid var(--rule);
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+.plate.rice  { border-color: var(--lime); box-shadow: 0 0 8px #b6ff3b55; }
+.plate.steak { border-color: var(--pink); box-shadow: 0 0 10px #ff2fd077; }
+.plate.flip { animation: flip 0.35s ease-out; }
+@keyframes flip { from { transform: rotateY(90deg); } to { transform: none; } }
+.giffen-tally { display: flex; gap: 1.25rem; margin: 0.4rem 0 0; font-weight: 600; font-variant-numeric: tabular-nums; }
+.t-rice { color: var(--lime); text-shadow: 0 0 6px #b6ff3b88; }
+.t-steak { color: var(--pink); text-shadow: 0 0 6px #ff2fd088; }
+.rice-price { color: #fff; font-variant-numeric: tabular-nums; min-width: 3.2rem; }
 .giffen-ctl { display: flex; align-items: center; gap: 0.75rem; margin-top: 0.5rem; color: var(--muted); font-size: 0.9rem; }
 .giffen-ctl input { flex: 1; accent-color: var(--pink); }
 .giffen-cap { margin: 0.5rem 0 0; color: #fff; font-size: 0.95rem; }
@@ -545,11 +548,11 @@ footer { position: relative; padding-top: 10rem; }
 .car {
   position: absolute;
   bottom: 0.4rem;
-  left: 58%;
-  width: 190px;
+  left: 52%;
+  width: 248px;
   pointer-events: auto;
   filter: drop-shadow(0 6px 10px #ff1a3a88);
-  transform: translateX(120vw);
+  transform: translateX(-120vw);
 }
 .car svg { display: block; width: 100%; height: auto; }
 .car::after {               /* neon glow on the road under the car */
@@ -565,17 +568,17 @@ footer { position: relative; padding-top: 10rem; }
   opacity: 0.8;
 }
 .roadtrip.go .car { animation: drive-in 3.2s cubic-bezier(.15,.8,.25,1) forwards; }
-.roadtrip.go .wheel { animation: spin 0.35s linear 9 reverse; }
+.roadtrip.go .wheel { animation: spin 0.35s linear 9; }
 @keyframes drive-in {
-  0%   { transform: translateX(120vw); }
-  85%  { transform: translateX(-6px) rotate(-1.5deg); }
+  0%   { transform: translateX(-120vw); }
+  85%  { transform: translateX(6px) rotate(1.2deg); }
   100% { transform: translateX(0); }
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 .honk {
   position: absolute;
   bottom: calc(100% + 6px);
-  left: -10%;
+  left: 30%;
   white-space: nowrap;
   padding: 0.3rem 0.65rem;
   border-radius: 8px;
@@ -594,7 +597,7 @@ footer { position: relative; padding-top: 10rem; }
 @keyframes bounce { 50% { transform: translateY(-3px); } }
 
 @media (max-width: 600px) {
-  .car { left: 30%; width: 150px; }
+  .car { left: 18%; width: 200px; }
   .honk { left: auto; right: -20%; }
 }
 @media (prefers-reduced-motion: reduce) {

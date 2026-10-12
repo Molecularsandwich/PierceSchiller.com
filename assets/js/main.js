@@ -32,7 +32,6 @@
 // ---------- Easter egg 1: type "pcr" to amplify the gel ----------
 (function () {
   var gel = document.querySelector(".gel");
-  var count = document.querySelector(".pcr-count");
   if (!gel) return;
   var typed = "", running = false;
   document.addEventListener("keydown", function (e) {
@@ -45,15 +44,12 @@
     var step = setInterval(function () {
       cycle += 1;
       gel.setAttribute("data-cycle", cycle);
-      count.textContent = "PCR cycle " + cycle + " of 3";
       if (cycle === 3) {
         clearInterval(step);
         gel.classList.add("uv");
-        count.textContent = "Amplified.";
         setTimeout(function () {
           gel.classList.remove("uv");
           gel.removeAttribute("data-cycle");
-          count.textContent = "";
           running = false;
         }, 2600);
       }
@@ -62,13 +58,41 @@
 })();
 
 // ---------- Easter egg 2: triple-click Giffen Brands ----------
+// $18 budget, 12 meals. Steak is $4 a meal, rice is the slider price.
+// You buy as much steak as the budget allows and fill the rest with rice,
+// so a pricier staple squeezes steak out and rice demand goes UP.
 (function () {
   var role = document.getElementById("giffen");
   if (!role) return;
   var panel = role.querySelector(".giffen");
-  var path = role.querySelector(".curve");
-  var dot = role.querySelector(".dot");
+  var plates = role.querySelector(".plates");
   var slider = role.querySelector(".giffen input");
+  var out = role.querySelector(".rice-price");
+  var tRice = role.querySelector(".t-rice");
+  var tSteak = role.querySelector(".t-steak");
+  var BUDGET = 18, MEALS = 12, STEAK = 4;
+  for (var i = 0; i < MEALS; i++) {
+    var d = document.createElement("span");
+    d.className = "plate";
+    plates.appendChild(d);
+  }
+  var last = -1;
+  function update() {
+    var p = slider.value / 100;
+    var steak = Math.max(0, Math.floor((BUDGET - MEALS * p) / (STEAK - p) + 1e-9));
+    var rice = MEALS - steak;
+    out.textContent = "$" + p.toFixed(2);
+    tRice.textContent = "Rice: " + rice + " meals";
+    tSteak.textContent = "Steak: " + steak + " meals";
+    [].forEach.call(plates.children, function (el, i) {
+      var kind = i < steak ? "steak" : "rice";
+      if (!el.classList.contains(kind)) {
+        el.className = "plate " + kind + (last >= 0 ? " flip" : "");
+        el.textContent = kind === "steak" ? "\u{1F969}" : "\u{1F35A}";
+      }
+    });
+    last = steak;
+  }
   var clicks = 0, timer;
   role.addEventListener("click", function (e) {
     if (e.target.closest(".giffen")) return;
@@ -77,15 +101,9 @@
     timer = setTimeout(function () { clicks = 0; }, 1200);
     if (clicks >= 3) { clicks = 0; panel.hidden = false; slider.focus(); }
   });
-  function place() {
-    var len = path.getTotalLength();
-    var pt = path.getPointAtLength(len * slider.value / 100);
-    dot.setAttribute("cx", pt.x);
-    dot.setAttribute("cy", pt.y);
-  }
-  slider.addEventListener("input", place);
+  slider.addEventListener("input", update);
   role.querySelector(".giffen-x").addEventListener("click", function () { panel.hidden = true; });
-  place();
+  update();
 })();
 
 // ---------- Easter egg 3: the '85 Civic rolls in at the bottom ----------
