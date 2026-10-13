@@ -536,25 +536,28 @@ footer { padding: 2rem 0 3rem; color: var(--muted); font-size: 0.9rem; }
 }
 .giffen-x:hover { color: #fff; border-color: var(--lime); }
 
-/* 3. bottom of the page: the '85 Civic rolls in and parks */
-footer { position: relative; padding-top: 4.5rem; }
+/* 3. the '85 Civic: rides the bottom edge of the screen, driven by scroll */
+footer { position: relative; padding-bottom: 3.5rem; }
 .roadtrip {
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: 4rem;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3.6rem;
   overflow: hidden;
   pointer-events: none;
+  z-index: 5;
 }
 .car {
   position: absolute;
-  bottom: 0.4rem;
-  left: 52%;
+  left: 0;
+  bottom: 4px;
   width: 34px;
   pointer-events: auto;
   filter: drop-shadow(0 1px 3px #ff1a3a99);
-  transform: translateX(-120vw);
+  will-change: transform;
 }
-.car svg { display: block; width: 100%; height: auto; }
+.car svg { display: block; width: 100%; height: auto; scale: var(--dir, 1) 1; transition: scale 0.25s; }
 .car::after {               /* neon glow on the road under the car */
   content: "";
   position: absolute;
@@ -567,18 +570,10 @@ footer { position: relative; padding-top: 4.5rem; }
   filter: blur(6px);
   opacity: 0.8;
 }
-.roadtrip.go .car { animation: drive-in 3.2s cubic-bezier(.15,.8,.25,1) forwards; }
-.roadtrip.go .wheel { animation: spin 0.35s linear 9; }
-@keyframes drive-in {
-  0%   { transform: translateX(-120vw); }
-  85%  { transform: translateX(6px) rotate(1.2deg); }
-  100% { transform: translateX(0); }
-}
-@keyframes spin { to { transform: rotate(360deg); } }
 .honk {
   position: absolute;
   bottom: calc(100% + 6px);
-  left: 30%;
+  left: 0;
   white-space: nowrap;
   padding: 0.3rem 0.65rem;
   border-radius: 8px;
@@ -592,17 +587,14 @@ footer { position: relative; padding-top: 4.5rem; }
   translate: 0 4px;
   transition: opacity 0.15s, translate 0.15s;
 }
+.car.past-half .honk { left: auto; right: 0; }
 .car:hover .honk, .car.honking .honk { opacity: 1; translate: 0 0; }
 .car:hover svg { animation: bounce 0.3s ease-out; }
-@keyframes bounce { 50% { transform: translateY(-3px); } }
+@keyframes bounce { 50% { translate: 0 -3px; } }
 
-@media (max-width: 600px) {
-  .car { left: 40%; width: 34px; }
-  .honk { left: auto; right: 0; }
-}
 @media (prefers-reduced-motion: reduce) {
-  .car { transform: none; }
-  .roadtrip.go .car, .roadtrip.go .wheel, .car:hover svg { animation: none; }
+  .car svg { transition: none; }
+  .car:hover svg { animation: none; }
   .gel.uv { animation: none; }
 }
 

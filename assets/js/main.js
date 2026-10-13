@@ -106,16 +106,36 @@
   update();
 })();
 
-// ---------- Easter egg 3: the '85 Civic rolls in at the bottom ----------
+// ---------- Easter egg 3: the '85 Civic drives along with your scroll ----------
+// Scroll down and it drives right; scroll up and it turns around and heads back.
 (function () {
-  var trip = document.querySelector(".roadtrip");
   var car = document.querySelector(".car");
-  if (!trip || !car) return;
-  if (!("IntersectionObserver" in window)) { trip.classList.add("go"); return; }
-  var io = new IntersectionObserver(function (entries) {
-    if (entries[0].isIntersecting) { trip.classList.add("go"); io.disconnect(); }
-  }, { threshold: 0.6 });
-  io.observe(trip);
+  if (!car) return;
+  var svg = car.querySelector("svg");
+  var wheels = car.querySelectorAll(".wheel");
+  var lastX = null, spin = 0, ticking = false;
+  var WHEEL_PX = 34 * (14.2 / 200) * 2 * Math.PI;   // tire circumference on screen
+
+  function place() {
+    ticking = false;
+    var max = document.documentElement.scrollHeight - innerHeight;
+    var progress = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
+    var lane = innerWidth - car.offsetWidth - 16;
+    var x = 8 + progress * lane;
+    if (lastX !== null && x !== lastX) {
+      var dx = x - lastX;
+      car.style.setProperty("--dir", dx < 0 ? -1 : 1);
+      spin += Math.abs(dx) / WHEEL_PX * 360;
+      wheels.forEach(function (w) { w.style.transform = "rotate(" + spin + "deg)"; });
+    }
+    car.style.transform = "translateX(" + x + "px)";
+    car.classList.toggle("past-half", x > innerWidth / 2);
+    lastX = x;
+  }
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(place); } }
+  addEventListener("scroll", onScroll, { passive: true });
+  addEventListener("resize", function () { lastX = null; onScroll(); });
+  place();
 
   // click the car for an actual honk
   var ctx;
