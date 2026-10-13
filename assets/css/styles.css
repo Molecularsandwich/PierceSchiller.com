@@ -7,7 +7,7 @@
   --rule: #2a2150;
   --green: #39ff14;
   --cyan: #19f3ff;
-  --lime: #b6ff3b;
+  --yellow: #ffef00;
   --gel: #110b26;
   --gel-deep: #07040f;
   --band: var(--green);
@@ -89,7 +89,7 @@ p { margin: 0 0 1rem; max-width: var(--measure); }
   position: fixed;
   inset: 0 0 auto 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--green), var(--cyan), var(--lime));
+  background: linear-gradient(90deg, var(--green), var(--cyan), var(--yellow));
   box-shadow: 0 0 10px var(--green), 0 0 20px var(--cyan);
   transform-origin: left;
   transform: scaleX(0);
@@ -221,7 +221,7 @@ p { margin: 0 0 1rem; max-width: var(--measure); }
 }
 .lane:nth-child(2) .band { --band: var(--cyan); }
 .lane:nth-child(3) .band { --band: var(--green); }
-.lane:nth-child(1) .band { --band: var(--lime); }
+.lane:nth-child(1) .band { --band: var(--yellow); }
 .band.exit { --band: #fff; opacity: 1; }
 .band:hover, .band:focus-visible { transform: scaleX(1.1); outline-offset: 4px; }
 .band span {
@@ -304,7 +304,7 @@ p { margin: 0 0 1rem; max-width: var(--measure); }
 }
 .era:nth-child(1) h3 { text-shadow: var(--glow-green); }
 .era:nth-child(2) h3 { text-shadow: var(--glow-cyan); }
-.era:nth-child(3) h3 { text-shadow: 0 0 4px #fff, 0 0 12px var(--lime), 0 0 26px var(--lime); }
+.era:nth-child(3) h3 { text-shadow: 0 0 4px #fff, 0 0 12px var(--yellow), 0 0 26px var(--yellow); }
 .era-sub { color: var(--muted); font-size: 0.95rem; margin-top: 0.25rem; }
 .roles { list-style: none; margin: 0; padding: 0; }
 .role {
@@ -321,7 +321,7 @@ p { margin: 0 0 1rem; max-width: var(--measure); }
   scroll-margin-top: 1.5rem;
 }
 .era:nth-child(2) .role { --tube: var(--cyan); }
-.era:nth-child(3) .role { --tube: var(--lime); }
+.era:nth-child(3) .role { --tube: var(--yellow); }
 /* the tube along the left edge that lights up as the role scrolls in */
 .role::before {
   content: "";
@@ -494,8 +494,8 @@ footer { padding: 2rem 0 3rem; color: var(--muted); font-size: 0.9rem; }
   margin-top: 0.9rem;
   padding: 1rem;
   border-radius: 12px;
-  border: 1px solid var(--lime);
-  box-shadow: 0 0 14px #b6ff3b55, inset 0 0 12px #b6ff3b22;
+  border: 1px solid var(--yellow);
+  box-shadow: 0 0 14px #ffef0055, inset 0 0 12px #ffef0022;
   background: #07040f;
   max-width: 26rem;
   animation: pop-glow 0.4s ease-out;
@@ -512,12 +512,12 @@ footer { padding: 2rem 0 3rem; color: var(--muted); font-size: 0.9rem; }
   border: 1px solid var(--rule);
   transition: border-color 0.25s, box-shadow 0.25s;
 }
-.plate.rice  { border-color: var(--lime); box-shadow: 0 0 8px #b6ff3b55; }
+.plate.rice  { border-color: var(--yellow); box-shadow: 0 0 8px #ffef0055; }
 .plate.steak { border-color: var(--green); box-shadow: 0 0 10px #39ff1477; }
 .plate.flip { animation: flip 0.35s ease-out; }
 @keyframes flip { from { transform: rotateY(90deg); } to { transform: none; } }
 .giffen-tally { display: flex; gap: 1.25rem; margin: 0.4rem 0 0; font-weight: 600; font-variant-numeric: tabular-nums; }
-.t-rice { color: var(--lime); text-shadow: 0 0 6px #b6ff3b88; }
+.t-rice { color: var(--yellow); text-shadow: 0 0 6px #ffef0088; }
 .t-steak { color: var(--green); text-shadow: 0 0 6px #39ff1488; }
 .rice-price { color: #fff; font-variant-numeric: tabular-nums; min-width: 3.2rem; }
 .giffen-ctl { display: flex; align-items: center; gap: 0.75rem; margin-top: 0.5rem; color: var(--muted); font-size: 0.9rem; }
@@ -534,7 +534,7 @@ footer { padding: 2rem 0 3rem; color: var(--muted); font-size: 0.9rem; }
   padding: 0.2rem 0.8rem;
   cursor: pointer;
 }
-.giffen-x:hover { color: #fff; border-color: var(--lime); }
+.giffen-x:hover { color: #fff; border-color: var(--yellow); }
 
 /* 3. the '85 Civic: rides the bottom edge of the screen, driven by scroll */
 footer { position: relative; padding-bottom: 3.5rem; }
