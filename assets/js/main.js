@@ -162,7 +162,7 @@
 // ---------- For anyone who opens dev tools ----------
 console.log(
   "%cReading source? You're my kind of person.\n%cSay hi: gmail@pierceschiller.com",
-  "color:#ff2fd0;font:700 14px sans-serif;text-shadow:0 0 6px #ff2fd0",
+  "color:#39ff14;font:700 14px sans-serif;text-shadow:0 0 6px #39ff14",
   "color:#19f3ff;font:12px sans-serif"
 );
 
