@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atlas // Pierce Schiller</title>
+<meta name="description" content="Atlas: side projects and experiments from Pierce Schiller.">
+<meta name="theme-color" content="#0a0618">
+<link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg">
+<link rel="canonical" href="https://pierceschiller.com/atlas/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/styles.css">
+<style>
+  .atlas-head { padding: clamp(3rem, 8vw, 6rem) 0 2rem; }
+  .atlas-head .back { color: var(--muted); font-size: 0.95rem; text-decoration: none; }
+  .atlas-head .back:hover { color: var(--cyan); }
+  .atlas-head h1 {
+    margin: 1rem 0 0.75rem;
+    font-size: clamp(3.2rem, 9vw, 6.5rem);
+    font-weight: 800;
+    font-stretch: 75%;
+    font-variation-settings: "opsz" 96;
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    color: #fff;
+    text-shadow: var(--glow-green);
+  }
+  .atlas-head p { color: var(--muted); font-size: 1.2rem; }
+  .atlas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    gap: 1.5rem;
+    padding: 0 0 clamp(3.5rem, 8vw, 6rem);
+    list-style: none;
+    margin: 0;
+  }
+  .tile {
+    display: block;
+    height: 100%;
+    padding: 1.5rem;
+    border-radius: 14px;
+    border: 1px solid var(--yellow);
+    background: var(--bg-2);
+    box-shadow: 0 0 12px #ffef0044, inset 0 0 12px #ffef0018;
+    text-decoration: none;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .tile:hover, .tile:focus-visible {
+    color: inherit;
+    text-shadow: none;
+    transform: translateY(-3px);
+    box-shadow: 0 0 22px #ffef0099, inset 0 0 16px #ffef0033;
+  }
+  .tile .kind { color: var(--yellow); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+  .tile h2 { margin: 0.4rem 0 0.5rem; font-size: 1.5rem; text-shadow: none; }
+  .tile p { margin: 0 0 1rem; color: var(--muted); }
+  .tile .go { color: var(--yellow); font-weight: 600; }
+  @media (prefers-reduced-motion: reduce) { .tile { transition: none; } .tile:hover { transform: none; } }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="atlas-head">
+    <a class="back" href="/">← Pierce Schiller</a>
+    <h1>Atlas</h1>
+    <p>Side projects and experiments.</p>
+  </header>
+
+  <ul class="atlas-grid">
+    <li>
+      <a class="tile" href="/atlas/goose/">
+        <span class="kind">Game</span>
+        <h2>Cyber Goose's Block World</h2>
+        <p>A Roblox-style block world, vibe coded from scratch. Ride the electric dirt bike or play hockey.</p>
+        <span class="go">Play →</span>
+      </a>
+    </li>
+  </ul>
+</main>
+<footer><div class="wrap foot-row"><span>© 2026 // <a href="/">Home</a></span></div></footer>
+</body>
+</html>
